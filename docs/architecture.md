@@ -93,19 +93,54 @@ When active, the agent can answer: *"What is the current status of Project X bas
 
 ---
 
+## Power BI reporting layer
+
+Power BI sits above all data sources and provides the accountability and insight layer. It is not optional — it is how the organisation knows the system is working.
+
+```
+SharePoint Lists          Planner           HaloPSA API
+(ProjectRegistry,         (Tasks,           (Tickets,
+ AuditLog,                 Assignments,      Time,
+ NeedsReviewQueue,         Due dates)        Invoices)
+ FinancialRegister,
+ AccountabilityScorecard)
+        ↓                     ↓                  ↓
+        └──────────── Power BI ──────────────────┘
+                          ↓
+        ┌─────────────────────────────────────────┐
+        │  Executive Portfolio (daily)             │
+        │  Team Operations (real-time)             │
+        │  Agent Performance (weekly)              │
+        │  Financial Tracking (daily)              │
+        │  Accountability Scorecard (weekly)       │
+        └─────────────────────────────────────────┘
+                          ↓
+        Power Automate alert flows
+        (metric crosses threshold → Teams alert → accountable person)
+```
+
+Five dashboards serve different audiences. See [`docs/metrics-and-accountability.md`](metrics-and-accountability.md) for the full metric definitions, owners, thresholds, and escalation rules. See [`templates/powerbi/dashboard-spec.md`](../templates/powerbi/dashboard-spec.md) for visual and DAX specifications.
+
+---
+
 ## Agent intent classification schema
 
 Beyond simple priority (DO/FYI/IGNORE), the agent classifies intent:
 
 | Intent | Description | Primary action |
 |--------|-------------|----------------|
-| `STATUS_UPDATE` | Signal indicates a project/task status has changed | Update SharePoint list + Planner |
-| `ACTION_ITEM` | Signal contains a new task or commitment | Create Planner task |
+| `STATUS_UPDATE` | Signal indicates a project/task status has changed | Update SharePoint + Planner |
+| `ACTION_ITEM` | Signal contains a new task or commitment | Create Planner task (commitment tracking) |
 | `BLOCKER` | Signal indicates something is blocked | Update status + urgent Teams alert |
 | `DECISION` | Signal records a decision | Add OneNote note + Loop page update |
-| `COMPLETION` | Signal indicates task/project is done | Update Planner task complete + SharePoint |
+| `COMPLETION` | Signal indicates task/project is done | Update Planner + SharePoint |
 | `FYI` | Informational only, no action needed | Log only |
 | `NEEDS_REVIEW` | Low confidence — human should decide | Log to NeedsReview queue |
+| `INVOICE_RECEIVED` | Invoice or bill received | Log to FinancialRegister; alert finance |
+| `PAYMENT_CONFIRMED` | Payment processed | Update FinancialRegister + ProjectRegistry |
+| `PO_APPROVED` | Purchase order approved | Update FinancialRegister; trigger next step |
+| `BUDGET_ALERT` | Signal indicates budget risk | Update FinancialStatus + urgent alert |
+| `BILLING_MILESTONE` | Stage complete — invoice can be raised | Create billing task in Planner; alert finance |
 
 ---
 

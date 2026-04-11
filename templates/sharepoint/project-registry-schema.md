@@ -21,6 +21,15 @@
 | Keywords | Multi-line text | No | Additional terms the agent should match (e.g. client name, product name) |
 | StartDate | Date | No | |
 | TargetEndDate | Date | No | |
+| **Financial columns** | | | |
+| Budget | Currency | No | Agreed project budget |
+| ActualSpend | Currency | No | Running actual cost — updated by Update-Financial-Status flow |
+| BilledToDate | Currency | No | Cumulative invoiced amount |
+| NextBillingMilestone | Single line text | No | Description of next billing trigger |
+| PONumber | Single line text | No | Associated purchase order reference |
+| FinancialStatus | Choice | No | On Budget / At Risk / Over Budget |
+| RAGStatus | Choice | No | Green / Amber / Red — overall project health (set by agent or manually) |
+| LastInvoiceDate | Date | No | Date of most recent invoice raised |
 
 ---
 
@@ -67,7 +76,45 @@
 
 ---
 
-## 4. SOP Library (document library, not list)
+## 4. Financial Register
+
+**List name:** `FinancialRegister`
+**Purpose:** Tracks invoices, purchase orders, and financial events captured by the agent. Feeds Power BI Financial Tracking dashboard.
+
+| Column | Type | Required | Notes |
+|--------|------|----------|-------|
+| ProjectRef | Lookup (ProjectRegistry) | Yes | Which project this relates to |
+| RecordType | Choice | Yes | Invoice / PO / Expense / BillingMilestone / Payment |
+| Reference | Single line text | Yes | Invoice number, PO number, expense claim ID |
+| Amount | Currency | Yes | Value of the record |
+| Status | Choice | Yes | Pending / Approved / Paid / Overdue / Cancelled |
+| DueDate | Date | No | Payment due date or milestone date |
+| ReceivedDate | Date | No | When the document arrived |
+| SignalSource | Single line text | No | Email subject / Teams message that triggered this record |
+| CreatedByAgent | Yes/No | Yes | Was this logged by the agent or manually? |
+| Notes | Multi-line text | No | |
+
+---
+
+## 5. Accountability Scorecard
+
+**List name:** `AccountabilityScorecard`
+**Purpose:** Stores the weekly scorecard state. Power BI reads this to render the scorecard and trend history. Power Automate writes to it when running alert checks.
+
+| Column | Type | Required | Notes |
+|--------|------|----------|-------|
+| WeekStarting | Date | Yes | Monday of the review week |
+| MetricName | Single line text | Yes | e.g. "NeedsReview queue cleared" |
+| Owner | Person | Yes | Responsible person |
+| Status | Choice | Yes | Green / Amber / Red |
+| MetricValue | Number | No | Actual value (e.g. 91 for 91%) |
+| Threshold | Single line text | No | e.g. "≥90%" |
+| AlertSent | Yes/No | Yes | Was a Teams alert triggered? |
+| Notes | Multi-line text | No | Context for the review |
+
+---
+
+## 6. SOP Library (document library, not list)
 
 **Library name:** `SOPLibrary`
 **Purpose:** Agent knowledge source — add this library to the Copilot Studio agent's knowledge sources.

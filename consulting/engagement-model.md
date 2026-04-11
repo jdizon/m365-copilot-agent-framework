@@ -33,12 +33,18 @@ This is not a custom app. Everything lives inside the customer's M365 tenant.
 - Handover and training
 
 ### Standard — Phases 0-4
-**What's delivered:** Starter + task capture and Power BI dashboard
+**What's delivered:** Starter + task capture, financial tracking, and Power BI dashboards
 **Duration:** 6-8 weeks
 **Adds:**
-- Power BI dashboard (volume, classification breakdown, NeedsReview rate, action distribution)
+- **Executive Portfolio dashboard** — portfolio health, financial summary, communication intelligence
+- **Team Operations dashboard** — task progress, workload, commitment tracker
+- **Financial Tracking dashboard** — budget vs actuals, billing pipeline, invoice ageing
+- **Accountability Scorecard** — weekly metric status per owner with automated Teams alerts
+- Financial intent classifications (INVOICE_RECEIVED, BILLING_MILESTONE, BUDGET_ALERT, etc.)
+- Financial Power Automate flows (Update-Financial-Status, Create-Invoice-Task, Log-PO-Entry, Flag-Budget-Overrun)
+- FinancialRegister + AccountabilityScorecard SharePoint lists
 - SOP-05 (weekly review) + first review facilitation
-- Planner task creation flow
+- Planner task creation flow with commitment tracking
 
 ### Full — Phases 0-6
 **What's delivered:** Complete platform with knowledge enrichment and continuous improvement

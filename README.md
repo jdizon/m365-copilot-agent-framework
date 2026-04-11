@@ -126,6 +126,24 @@ See [`consulting/engagement-model.md`](consulting/engagement-model.md) for the f
 
 ---
 
+## Metrics and accountability
+
+Five Power BI dashboards provide full visibility across the organisation:
+
+| Dashboard | Audience | What it shows |
+|-----------|----------|---------------|
+| **Executive Portfolio** | Leadership | Portfolio health, financial summary, communication intelligence |
+| **Team Operations** | Project managers | Task progress, workload distribution, commitment tracking |
+| **Agent Performance** | IT/ops | Classification accuracy, NeedsReview trends, improvement timeline |
+| **Financial Tracking** | Finance, account managers | Budget vs actuals, billing pipeline, invoice ageing |
+| **Accountability Scorecard** | All | Weekly metric status per owner — Green/Amber/Red with Teams alerts |
+
+Every metric has an owner, a threshold, and an automated escalation path. When a metric goes Red, Power Automate sends a Teams alert to the accountable person — no manual monitoring required.
+
+See [`docs/metrics-and-accountability.md`](docs/metrics-and-accountability.md) for the full framework and [`templates/powerbi/dashboard-spec.md`](templates/powerbi/dashboard-spec.md) for build specifications.
+
+---
+
 ## Evidence base
 
 All implementation decisions in this framework are evidence-grounded. See [`docs/evidence-research.md`](docs/evidence-research.md) for the full research pack including:
