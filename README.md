@@ -76,6 +76,7 @@ Copilot Studio Agent
 │   └── phase-6-continuous-improvement.md
 ├── runbooks/
 │   ├── setup-checklist.md       Full build checklist (Phases 0-6)
+│   ├── graph-access-setup.md    Microsoft Graph App Registration — step-by-step setup guide
 │   ├── change-control.md        Standard / Normal / Emergency change process
 │   └── weekly-review.md         SOP-05: weekly review and improvement cadence
 ├── templates/
@@ -104,7 +105,7 @@ Copilot Studio Agent
 - Microsoft 365 tenant with Exchange Online
 - Microsoft Copilot Studio licence (or M365 Copilot add-on)
 - Power Automate Premium licence
-- Azure AD App Registration (service principal for deployment)
+- Azure AD App Registration with Graph API permissions (see [`runbooks/graph-access-setup.md`](runbooks/graph-access-setup.md))
 - System Administrator role in the target Power Platform environment
 - SharePoint Online site for project registry + knowledge base
 

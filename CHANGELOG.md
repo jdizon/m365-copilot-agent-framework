@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.2.0] — April 2026
+
+### Added
+- `runbooks/graph-access-setup.md` — step-by-step Microsoft Graph App Registration setup guide: Entra ID app creation, client secret management, 10-permission table (delegated + application), admin consent, Power Automate connection, Copilot Studio knowledge source connection, governance/rotation/compliance, troubleshooting table, Phase 0 exit gate
+- `consulting/prerequisites-checklist.md` — new **Microsoft Graph App Registration** section with incremental permission guidance (Phase 2 minimum set vs Phase 3 additions) and vault storage requirement
+
+### Changed
+- `README.md` — repository structure updated to include `runbooks/graph-access-setup.md`; prerequisites section links to the new runbook
+
+---
+
 ## [1.1.0] — April 2026
 
 ### Added

@@ -23,6 +23,21 @@ Use this during discovery/scoping to confirm readiness before committing to a st
 
 ---
 
+## Microsoft Graph App Registration (Phase 0 prerequisite)
+
+This must be completed before Phase 0 exit. See [`runbooks/graph-access-setup.md`](../runbooks/graph-access-setup.md) for the full step-by-step guide.
+
+- [ ] Entra ID App Registration created — client ID and tenant ID documented
+- [ ] Client secret created — stored in secrets vault, expiry date calendared
+- [ ] Admin consent granted for all required Graph API permissions
+- [ ] Phase 2 minimum permissions confirmed: `Mail.Read`, `Sites.ReadWrite.All`, `User.Read`, `offline_access`
+- [ ] Phase 3 permissions added when ready: `Mail.ReadWrite`, `Tasks.ReadWrite`, `ChannelMessage.Send`
+- [ ] Power Automate connection tested: read mail ✅, write SharePoint ✅
+- [ ] Copilot Studio knowledge source connected to SharePoint ✅
+- [ ] Client secret **not** stored in any document, email, or flow variable — vault only
+
+---
+
 ## SharePoint
 
 - [ ] SharePoint Online site designated for this project
