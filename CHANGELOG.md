@@ -1,5 +1,28 @@
 # Changelog
 
+## [2.0.0] — April 2026
+
+### Breaking changes
+- Framework restructured from Studio-only to **dual-path**: Option A (Cowork-first) and Option B (Studio-first)
+- `runbooks/setup-checklist.md` fully rewritten — Studio agent build steps replaced with Cowork evaluation baseline (Phase 1) and PA governance flows (Phase 2)
+- `consulting/engagement-model.md` fully rewritten — deliverables now vary by architecture path; prerequisites split by Option A / Option B
+- `consulting/prerequisites-checklist.md` restructured — Cowork prerequisites + compliance gates added as Option A; Studio/Graph App Registration retained as Option B
+- `templates/agent/instructions-template.md` annotated as Option B only; Cowork prompt templates now primary for Option A
+- `runbooks/weekly-review.md` rewritten — `AgentAuditLog` / `pac solution import` references replaced with EmailTriageQueue + SharePoint prompt template versioning (Option A path documented alongside Option B)
+
+### Added
+- `docs/cowork-integration.md` — Cowork overview, licensing, admin enablement, data residency/APP compliance, 13 skills reference, approval gate guidance, PA integration pattern, known limitations
+- `runbooks/power-automate-flows.md` — full step-by-step build guide for all 8 PA flows (4 core Phase 2 + 4 financial Phase 3), with exact Power Automate expressions, field mappings, and testing checklist
+- `templates/cowork/prompt-templates.md` — full prompt library: Phase 1 triage, Phase 2+ refined triage, daily briefing, morning catch-up, pre-meeting prep, 4 reply types, inbox cleanup, project search, financial intent triage; version log table for SOP-04
+
+### Changed
+- `README.md` — v2.0 dual-path architecture overview; both option diagrams; updated repo structure; updated prerequisites by path
+- `docs/architecture.md` — full rewrite: Option A vs B comparison table; both architecture diagrams with exact component flows; shared intent schema; shared SharePoint system of record; compliance notes table
+- `docs/open-spec-template.md` — architecture option checkboxes added; prerequisites split by Option A / Option B; updated acceptance criteria
+- `docs/evidence-research.md` — Section 5 (Cowork) expanded with GA dates, licensing, Anthropic processing detail, and 6 official Learn URLs; sources index updated from 16 to 22
+
+---
+
 ## [1.2.0] — April 2026
 
 ### Added

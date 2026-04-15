@@ -1,85 +1,99 @@
 # SOP-05 — Weekly Review and Continuous Improvement
 
-**Cadence:** Weekly (recommend: same day/time each week)
-**Duration:** 30-45 minutes
-**Owner:** [Head of IT / Operations Lead]
+**Cadence:** Weekly (recommend: same day/time each week)  
+**Duration:** 30–45 minutes  
+**Owner:** [Head of IT / Operations Lead]  
 **Participants:** IT Support (optional)
 
 ---
 
 ## Purpose
 
-The weekly review is the continuous improvement engine for the agent. It converts the previous week's audit data into instruction improvements, knowledge updates, and accuracy gains.
+The weekly review is the continuous improvement engine for the agent. It converts the previous week's audit data into prompt improvements (Option A) or instruction updates (Option B), knowledge updates, and accuracy gains.
 
-Without this review, the agent stays static. With it, the agent improves every week.
+Without this review, the system stays static. With it, precision improves every week.
 
 ---
 
 ## Step 1 — Pull the week's metrics from Power BI (10 min)
 
-Review the AgentAuditLog dashboard for the past 7 days:
+Review the **Agent Performance** dashboard (source: EmailTriageQueue) for the past 7 days:
 
 | Metric | Review question |
 |--------|----------------|
-| Total signals processed | Is volume as expected? Any unusual spikes? |
-| Classification breakdown by intent | Any category unexpectedly high or low? |
+| Total emails processed | Is volume as expected? Any unusual spikes? |
+| Classification breakdown by category | Any category unexpectedly high or low? |
 | NeedsReview rate | Is it trending down? If rising, why? |
-| False positive rate per category | Which categories are most error-prone? |
-| Action distribution | Which flows were called most? Any failures? |
+| IsCorrect rate per category | Which categories are most error-prone? |
+| False positive rate | Which categories have the most corrections? |
 
-Note any anomalies. These drive the review.
+Note any anomalies. These drive Steps 2 and 3.
 
 ---
 
 ## Step 2 — Review NeedsReview queue (10 min)
 
-Open `NeedsReviewQueue` in SharePoint. Filter by `ReviewStatus = Pending`.
+Open **EmailTriageQueue** in SharePoint. Filter by `IsCorrect = (blank)` (NeedsReview items pending human classification).
 
 For each item:
-1. Read the signal excerpt and the agent's reason for routing to NeedsReview
-2. Decide: correct category + project match
-3. Fill in `CorrectProject`, `CorrectIntent`, and `CorrectionNotes`
-4. Set `ReviewStatus = Reviewed`
+1. Read the email subject, sender, and the category Cowork/Studio assigned
+2. Decide: what was the correct category?
+3. Fill in `ConfirmedCategory`, `ConfirmedBy`, `ConfirmedDate`, and `IsCorrect` (Yes/No)
+4. Add a brief note in `Notes` if the reason for misclassification is instructive
 
-**Pattern watch:** If 3+ items share the same misclassification reason, it's an instruction gap — flag for Step 3.
+**Pattern watch:** If 3+ items share the same misclassification reason, it is a prompt/instruction gap — flag for Step 3.
 
 ---
 
-## Step 3 — Update agent instructions (10 min)
+## Step 3 — Update prompt templates or agent instructions (10 min)
 
-For each instruction gap identified:
+### Option A — Cowork-first
 
-1. Open the agent instruction file in git (`templates/agent/instructions-template.md`)
+For each gap identified in Step 2:
+
+1. Open the **Prompt_Templates** document library in SharePoint
+2. Open the current version of the affected template (e.g., `Daily_Triage_v1.2.md`)
+3. Make the targeted improvement:
+   - Add a clarifying rule for the confused category
+   - Add a specific sender or domain to the rules block
+   - Tighten or loosen a keyword condition
+4. Save as a new version (increment the version number)
+5. Add a row to the **Version Log** table in the template with: version, date, change summary, precision before, precision after (update "after" at next week's review)
+6. Log the change in the SharePoint change log per **SOP-04**
+
+### Option B — Studio-first
+
+For each gap identified in Step 2:
+
+1. Open the agent instructions in Copilot Studio (or `templates/agent/instructions-template.md` in git)
 2. Make the targeted improvement:
    - Add a clarifying example for the confused category
-   - Tighten the project matching criteria
-   - Adjust the confidence threshold for a specific pattern
-   - Add a new keyword to the project registry
-3. Commit the change with a note: `Update: [what changed] — reason: [why]`
-4. Deploy via `pac solution import` or update directly in Copilot Studio
-5. Note the instruction version in `AgentVersion` column for future correlation
+   - Adjust a rule in the customer-specific rules block
+   - Add a new keyword or sender to the classification logic
+3. Save and deploy the updated instructions
+4. Note the instruction version in the SharePoint change log per **SOP-04**
 
 ---
 
 ## Step 4 — Update knowledge base (5 min, as needed)
 
-- New project started this week? Add to ProjectRegistry + create project brief in SOP Library.
+- New project started this week? Add to ProjectRegistry.
 - Project completed? Update status to Complete in ProjectRegistry.
-- New stakeholder or client? Add to project brief document.
+- New stakeholder or client? Add to customer-specific rules in the prompt template (Option A) or agent instructions (Option B).
 - Agent drafted an email that was significantly edited? Update Email Style Guide with the pattern.
 
 ---
 
 ## Step 5 — Record the review (5 min)
 
-Log the review outcome in SharePoint (or a Loop page):
+Log the review outcome in SharePoint (change log or a dedicated Weekly Review list):
 
 ```
 Date: [date]
 Reviewer: [name]
-Signals processed this week: [n]
+Emails processed this week: [n]
 NeedsReview items resolved: [n]
-Instruction changes made: [yes/no — summary]
+Prompt/instruction changes made: [yes/no — summary]
 Knowledge base updates: [yes/no — summary]
 Notes: [anything unusual]
 Next week watch: [any category or pattern to monitor]
@@ -89,11 +103,11 @@ Next week watch: [any category or pattern to monitor]
 
 ## Escalation criteria
 
-Escalate to change control (Normal change) if:
-- An instruction change affects more than one category
+Escalate to change control (Normal change — see SOP-04) if:
+- A prompt/instruction change affects more than one category
 - A new intent category needs to be added
-- Confidence threshold needs adjustment
-- A flow is failing or producing incorrect results
+- The urgency threshold needs adjustment
+- A PA flow is failing or producing incorrect results
 
 ---
 
@@ -101,7 +115,8 @@ Escalate to change control (Normal change) if:
 
 | Timeframe | Target |
 |-----------|--------|
-| End of Phase 2 (2 weeks) | ≥90% precision; <10% false positive rate |
-| Month 2 | NeedsReview rate declining week-on-week |
-| Month 3 | Agent draft acceptance rate >50% |
-| Month 6 | NeedsReview rate <10%; agent flags at-risk projects proactively |
+| End of Phase 1 (2 weeks) | ≥90% precision across all categories |
+| Month 1 | NeedsReview rate declining week-on-week |
+| Month 2 | NeedsReview rate <15%; corrections becoming rare |
+| Month 3 | ≥95% precision in high-volume categories; "skip approvals" enabled for those (Option A) |
+| Month 6 | NeedsReview rate <10%; prompt/instruction changes < 1 per month |

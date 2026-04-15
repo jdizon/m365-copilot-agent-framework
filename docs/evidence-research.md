@@ -1,6 +1,6 @@
 # Evidence Research Pack — M365 Copilot Agent Framework
 
-**Compiled:** April 2026 | **Sources:** 16 | **Scope:** Email workload, platform constraints, accuracy benchmarks, licensing, compliance
+**Compiled:** April 2026 | **Sources:** 22 | **Scope:** Email workload, platform constraints, accuracy benchmarks, licensing, compliance, Copilot Cowork
 
 All implementation decisions in this framework are grounded in primary sources. This document is the evidence base.
 
@@ -90,8 +90,19 @@ The framework's ≥90% precision gate (Phase 2 → Phase 3) is conservative rela
 - **Agent 365 governance system:** permission scopes, approval workflows, execution logging
 - Capital Group Companies (SVP Barton Warner): confirmed early adoption
 - Multi-model accuracy improvement: GPT drafts + Claude fact-checks = **+13.8% on benchmarks**
+- **Powered by:** Anthropic Claude running inside M365 security boundary
+- **Announced:** 9 March 2026 | **Frontier availability:** 30 March 2026 | **GA:** 1 May 2026
+- **Licensing:** M365 E7 ($99 USD/user/month, bundles E5 + Copilot + Cowork) or Frontier add-on (~$30/user/month)
 
-**Relevance:** This framework's design (approval gates, audit logs, phased rollout) is aligned with how Copilot Cowork was designed. PITA implementations may converge with Cowork's native agent as the platform matures.
+**Official Microsoft Learn resources:**
+- [Cowork overview](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/)
+- [Get started with Cowork](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/get-started)
+- [Cowork FAQ](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/cowork-faq)
+- [Manage Cowork for your organisation](https://learn.microsoft.com/en-us/copilot/microsoft-365/cowork/cowork-admin-governance)
+- [Copilot and Anthropic apps in M365](https://learn.microsoft.com/en-us/microsoft-365/copilot/copilot-anthropic-apps)
+- [Responsible AI FAQ](https://learn.microsoft.com/en-us/microsoft-365/copilot/responsible-ai/cowork-responsible-ai-faq)
+
+**Relevance:** Cowork is the recommended reasoning layer for Option A engagements. Its native approval gates, built-in email triage skill, and HITL model directly implement the framework's core design principles. Power Automate flows fire on Outlook folder moves triggered by Cowork — no direct API calls required.
 
 ---
 
@@ -151,3 +162,9 @@ The framework's ≥90% precision gate (Phase 2 → Phase 3) is conservative rela
 14. [AI inbox agents overview — VirtualWorkforce.ai](https://virtualworkforce.ai/inbox-agents-for-email-automation/)
 15. [Microsoft Ignite 2025 — Microsoft 365 Blog](https://www.microsoft.com/en-us/microsoft-365/blog/2025/11/18/microsoft-ignite-2025-copilot-and-agents-built-to-power-the-frontier-firm/)
 16. [Build AI email agent — Microsoft Tech Community](https://techcommunity.microsoft.com/blog/azurecommunicationservicesblog/build-your-ai-email-agent-with-microsoft-copilot-studio/4448724)
+17. [Cowork overview — Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/)
+18. [Get started with Cowork — Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/copilot/cowork/get-started)
+19. [Manage Cowork for your organisation — Microsoft Learn](https://learn.microsoft.com/en-us/copilot/microsoft-365/cowork/cowork-admin-governance)
+20. [Copilot and Anthropic apps in M365 — Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/copilot/copilot-anthropic-apps)
+21. [Cowork Responsible AI FAQ — Microsoft Learn](https://learn.microsoft.com/en-us/microsoft-365/copilot/responsible-ai/cowork-responsible-ai-faq)
+22. [Microsoft accelerates agentic automation — SiliconANGLE](https://siliconangle.com/2026/03/30/microsoft-accelerates-agentic-automation-copilot-cowork-complex-workflows/)
